@@ -89,5 +89,5 @@ $adminName = $_SESSION['admin_name'] ?? 'Administrator';
                 <button type="submit" style="background:#007bff;color:#fff;padding:10px 24px;border:none;border-radius:4px;cursor:pointer;">Save Changes</button>
             </form>
         </div>
-        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
     </div>

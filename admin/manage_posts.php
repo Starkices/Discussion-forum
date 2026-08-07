@@ -325,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bulk_delete'])) {
         </div>
             <button type="submit" name="bulk_delete" class="bulk-btn"><i class="fas fa-trash"></i> Delete Selected</button>
         </form>
-        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
     </div>
     <script>
         function toggleAll(source) {

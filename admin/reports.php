@@ -158,7 +158,7 @@ $result = $conn->query($sql);
             <?php endif; ?>
             </tbody>
         </table>
-        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?= date('Y'); ?> NIITDF. All rights reserved.</p>
+        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?= date('Y'); ?> Starkices. All rights reserved.</p>
     </div>
 </body>
 </html>

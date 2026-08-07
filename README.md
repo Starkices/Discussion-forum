@@ -47,7 +47,7 @@ git clone https://github.com/Starkices/discussion-forum.git
 ```
 discussion_forum
 ```
-4. Import the SQL database.
+4. Import the SQL database. [text](discussion_forum.sql)
 5. Configure your database connection.
 6. Start Apache and MySQL.
 7. Visit:

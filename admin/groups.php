@@ -307,7 +307,7 @@ if ($is_admin && isset($_GET['action']) && $_GET['action'] === 'delete' && isset
                 </div> 
         <?php endif; ?> 
     </div>
-    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 </body>
 </html>
 <script>

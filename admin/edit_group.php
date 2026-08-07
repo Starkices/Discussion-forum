@@ -229,7 +229,7 @@ if (isset($_POST['create']) && isset($_GET['group_id'])) {
         ?>
         </div>
     </div>
-    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 
 </body>
 </html>

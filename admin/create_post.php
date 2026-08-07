@@ -242,7 +242,7 @@ $sql = "INSERT INTO posts (user_id, title, content, category, image) VALUES ($us
         <a href="posts.php" class="btn"><i class="fas fa-eye"></i> View Posts</a>
         </div>
     </div>
-    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 
 </body>
 </html>

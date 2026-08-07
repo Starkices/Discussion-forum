@@ -257,6 +257,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="users.php" class="btn"><i class="fas fa-users"></i> View Students</a>
         </div>
     </div>
-    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> DF. All rights reserved.</p>
+    <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 </body>
 </html>

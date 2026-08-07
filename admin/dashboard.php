@@ -85,7 +85,7 @@ $adminName = $_SESSION['admin_name'] ?? 'Administrator';
             </div>
         </div>
         <!-- Add more dashboard widgets or tables as needed -->
-        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+        <p class="footer" style="margin-top: 40px; text-align: center; color: #888;">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 
     </div>
 </body>

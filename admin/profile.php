@@ -138,9 +138,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="post-meta">
                             <i class="fa fa-clock"></i> <?= date('M d, Y H:i', strtotime($post['created_at'])) ?>
                         </div>
-                        <div class="post-content"><?= nl2br(htmlspecialchars($post['content'])) ?></div>
+                        <div class="post-content">
+                            <?php
+                            $isTruncated = mb_strlen($post['content']) > 150;
+                            if ($isTruncated) {
+                                $shortPostContent = mb_substr($post['content'], 0, 150);
+                                echo '<p id="post-preview-' . $post['id'] . '">' . nl2br($shortPostContent) . '... <a href="#" onclick="event.preventDefault(); document.getElementById(\'post-preview-' . $post['id'] . '\').style.display=\'none\'; document.getElementById(\'post-full-' . $post['id'] . '\').style.display=\'block\';">See more</a></p>';
+                                echo '<p id="post-full-' . $post['id'] . '" style="display:none;">' . nl2br($post['content']) . ' <a href="#" onclick="event.preventDefault(); document.getElementById(\'post-full-' . $post['id'] . '\').style.display=\'none\'; document.getElementById(\'post-preview-' . $post['id'] . '\').style.display=\'block\';">See less</a></p>';
+                            } else {
+                                echo '<p>' . nl2br($post['content']) . '</p>';
+                            }
+                            ?>
+                        </div>
                         <?php if (!empty($post['image'])): ?>
-                            <img class="post-img" src="<?= htmlspecialchars($post['image']) ?>" alt="Post Image">
+                            <img class="post-img" style="max-height: 200px;" src="<?= htmlspecialchars($post['image']) ?>" alt="Post Image">
                         <?php endif; ?>
                     </div>
                 <?php endwhile; ?>

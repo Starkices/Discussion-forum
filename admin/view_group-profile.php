@@ -286,6 +286,6 @@ $stmt->close();
             </div>
         </div>
     </div>
-    <p class="footer">&copy; <?php echo date('Y'); ?> NIITDF. All rights reserved.</p>
+    <p class="footer">&copy; <?php echo date('Y'); ?> Starkices. All rights reserved.</p>
 </body>
 </html>
