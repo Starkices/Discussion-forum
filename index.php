@@ -9,6 +9,6 @@ if (!isset($_SESSION['admin_logged_in']) && $_SESSION['user_logged_in'] === true
     exit();
 } else {
     // Not logged in, redirect to login page
-    header('Location: ../login.php');
+    header('Location: ./login.php');
     exit();
 }
