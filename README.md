@@ -12,6 +12,7 @@ A web-based Student discussion forum built with **PHP** and **MySQL**, allowing 
 - Secure login and logout
 - Create discussion posts
 - Comment on discussions
+- Chat on Group
 - User profile management
 - Admin section
 - Responsive interface
@@ -43,11 +44,9 @@ git clone https://github.com/Starkices/discussion-forum.git
 ```
 2. Move the project into your web server directory.
 3. Create a MySQL database named:
-
 ```
 discussion_forum
 ```
-
 4. Import the SQL database.
 5. Configure your database connection.
 6. Start Apache and MySQL.
