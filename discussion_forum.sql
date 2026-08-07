@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2026 at 05:56 PM
+-- Generation Time: Aug 07, 2026 at 10:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `username`, `password`, `last_login`, `created_at`) VALUES
 (1, 'dave', '$2y$10$GUNYpk8nW53Q04OYjjv2/eGJF2km8rnKXfLhQZV4Ryh7Fu1EE594W', '2025-11-03 12:12:38', '2025-06-23 16:30:22'),
-(4, 'NELLY', '$2y$12$kah4HTSQnlMpPB.Wj36G3.4eOcjB9wXyEK35iqE8c83Qfvfs0AIAu', '2026-08-07 16:47:00', '2026-08-07 16:34:02');
+(4, 'NELLY', '$2y$12$kah4HTSQnlMpPB.Wj36G3.4eOcjB9wXyEK35iqE8c83Qfvfs0AIAu', '2026-08-07 21:01:46', '2026-08-07 16:34:02');
 
 -- --------------------------------------------------------
 
@@ -293,7 +293,8 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `post_id`, `reported_by`, `reason`, `status`, `created_at`) VALUES
-(2, 8, 20, 'dasss', 'open', '2025-10-31 14:09:38');
+(5, 9, 20, 'Wrong info', 'resolved', '2026-08-07 21:00:01'),
+(6, 8, 20, 'waste of space', 'open', '2026-08-07 21:00:13');
 
 -- --------------------------------------------------------
 
@@ -351,12 +352,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `status`, `profile_pic`, `cover_photo`, `email`, `fullname`) VALUES
-(15, 'agranyal', '$2y$10$x7plFnhmENVZWQr3e4ins.fU4TbS6B6kOZ7a8wrm7QYJyE4g8w5du', '2025-06-19 07:43:59', NULL, './uploads/profile_agranyal.jpg', './uploads/cover_agranyal.jpg', 'baterenruth3@gmail.com', ''),
 (18, 'dave', '$2y$10$RZwv0nmE16NmjLZxP53uFe3ojlYAw4/6fLsUB7zu15Ld9pNI2MCha', '2025-06-19 20:10:52', NULL, './uploads/profile_dave.jpg', './uploads/cover_dave.jpg', 'wisd@g.com', ''),
-(20, 'johndoe', '$2y$10$0o9nJVj8D8rcvruue8yy1eaJhp5hpgioZ/yWBoNH0LpV4FiHCthB2', '2025-06-22 19:04:20', NULL, './uploads/profile_johndoe.jpg', './uploads/cover_johndoe.jpg', 'wlcxwale@gmail.com', ''),
-(22, 'johndoes', '$2y$10$ZOX8yW8FWF6EnwszSQcFtugV1IqbEtv/4ONQHatvLdy1vU7ADUFey', '2025-06-23 19:45:06', NULL, NULL, NULL, 'wisd@g.com', ''),
-(23, 'johndo', '$2y$10$TnEzBHzXrbx5Ix4Gum5gJOieboMpQ/FM2TpPDD9pRjIvaF7iDsv12', '2025-06-24 14:34:11', NULL, NULL, NULL, 'wisd@g.com', ''),
-(24, 'johndoede', '$2y$10$RjCR3xxyK5hb87WphH.htuTMKcVzaXwkgVjgQ658YgjyxSfLtDYB.', '2025-06-28 09:13:54', NULL, NULL, NULL, 'wlcxwale@gmail.com', '');
+(20, 'johndoe', '$2y$10$0o9nJVj8D8rcvruue8yy1eaJhp5hpgioZ/yWBoNH0LpV4FiHCthB2', '2025-06-22 19:04:20', NULL, './uploads/profile_johndoe.jpg', './uploads/cover_johndoe.jpg', 'sikdhbbdh@gmail.com', ''),
+(22, 'johndoes', '$2y$10$ZOX8yW8FWF6EnwszSQcFtugV1IqbEtv/4ONQHatvLdy1vU7ADUFey', '2026-08-07 19:04:08', '(suspended)', NULL, NULL, 'wisd@g.com', ''),
+(23, 'johndo', '$2y$10$TnEzBHzXrbx5Ix4Gum5gJOieboMpQ/FM2TpPDD9pRjIvaF7iDsv12', '2025-06-24 14:34:11', NULL, NULL, NULL, 'wisd@g.com', '');
 
 --
 -- Indexes for dumped tables
@@ -546,7 +545,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `settings`
