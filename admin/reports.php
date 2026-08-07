@@ -1,41 +1,51 @@
 <?php
+
 // adminacc.php
 
 require 'db_connect.php';
-
 session_start();
-// Example: Check if user is logged in (customize as needed)
+
+// Check if admin is logged in
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: adminlogin.php');
     exit();
 }
 
-// Example admin name
+// Admin name for display
 $adminName = $_SESSION['admin_name'] ?? 'Administrator';
 
-// Handle status update
+// Handle status update (resolve)
 if (isset($_POST['resolve']) && isset($_POST['report_id'])) {
     $rid = intval($_POST['report_id']);
     $conn->query("UPDATE reports SET status='resolved' WHERE id=$rid");
+    header('Location: ' . $_SERVER['PHP_SELF'] . ($_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : ''));
+    exit();
 }
 
 // Handle delete
 if (isset($_POST['delete']) && isset($_POST['report_id'])) {
     $rid = intval($_POST['report_id']);
     $conn->query("DELETE FROM reports WHERE id=$rid");
+    header('Location: ' . $_SERVER['PHP_SELF'] . ($_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : ''));
+    exit();
 }
 
-// Fetch filter/search
+// Fetch filter/search params
 $filter_status = $_GET['status'] ?? '';
 $search = $_GET['search'] ?? '';
 
 $where = [];
-if ($filter_status) $where[] = "open'" . $conn->real_escape_string($filter_status) . "'";
-if ($search) $where[] = "(r.reason LIKE '%" . $conn->real_escape_string($search) . "%' OR r.reported_by LIKE '%" . $conn->real_escape_string($search) . "%')";
+$allowed_statuses = ['open', 'resolved'];
+if ($filter_status !== '' && in_array($filter_status, $allowed_statuses, true)) {
+    $where[] = "r.status = '" . $conn->real_escape_string($filter_status) . "'";
+}
+if ($search) {
+    $where[] = "(r.reason LIKE '%" . $conn->real_escape_string($search) . "%' OR r.reported_by LIKE '%" . $conn->real_escape_string($search) . "%')";
+}
 $where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
 // Fetch reports
-$sql = "SELECT r.*, p.content AS post_content, u.username AS reporter_name FROM reports r LEFT JOIN  posts p ON r.post_id = p.id LEFT JOIN users u ON r.reported_by = u.id $where_sql ORDER BY r.created_at DESC";
+$sql = "SELECT r.*, p.content AS post_content, u.username AS reporter_name FROM reports r LEFT JOIN posts p ON r.post_id = p.id LEFT JOIN users u ON r.reported_by = u.id $where_sql ORDER BY r.created_at DESC";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -96,7 +106,7 @@ $result = $conn->query($sql);
     </div>
     <div class="main-content" style="margin-top:70px;">
         <div class="actions">
-        <a href="dashboard.php" class="btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a> 
+        <a href="dashboard.php" class="btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
         </div>
         <form class="search-bar" method="get" action="">
             <input type="text" name="search" placeholder="Search reports or user id..." value="<?= htmlspecialchars($search) ?>">
@@ -125,7 +135,7 @@ $result = $conn->query($sql);
                         <td><?= htmlspecialchars($row['reporter_name'] ?? $row['reported_by']) ?></td>
                         <td>
                             <?php if ($row['post_id']): ?>
-                                <a href="./posts.php#post-<?= $row['id'] ?>" target="_blank"><?= htmlspecialchars(mb_strimwidth($row['post_content'], 0, 40, "...")) ?></a>
+                                <a href="./posts.php#post-<?= $row['post_id'] ?>" target="_blank"><?= htmlspecialchars(mb_strimwidth($row['post_content'], 0, 40, "...")) ?></a>
                             <?php else: ?>
                                 [Deleted]
                             <?php endif; ?>
@@ -154,7 +164,7 @@ $result = $conn->query($sql);
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="7" style="text-align:center;color:#888;">No reports found.</td></tr>
+                <tr><td colspan="6" style="text-align:center;color:#888;">No reports found.</td></tr>
             <?php endif; ?>
             </tbody>
         </table>

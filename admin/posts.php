@@ -90,35 +90,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentb'])) {
 // Handle post report submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
     $postId = intval($_POST['report_post_id']);
-    $reason = trim(mysqli_real_escape_string($conn, $_POST['reason'])); // Sanitize
+    $reason = trim($_POST['reason'] ?? '');
 
-    // Refetch userId for safety (in case it's an admin or session mismatch)
-    $username = $_SESSION['username'] ?? $_SESSION['admin_name'];
+    $username = $_SESSION['username'] ?? $_SESSION['admin_name'] ?? null;
     $userId = null;
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->bind_result($userId);
-    $stmt->fetch();
-    $stmt->close();
+    if ($username !== null) {
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->bind_result($userId);
+        $stmt->fetch();
+        $stmt->close();
+    }
 
     if (!empty($reason) && $userId !== null) {
         $stmt = $conn->prepare("INSERT INTO reports (post_id, reported_by, reason, status) VALUES (?, ?, ?, 'open')");
-        $stmt->bind_param("iis", $postId, $userId, $reason); // Correct types: int-int-string
-        
+        $stmt->bind_param("iis", $postId, $userId, $reason);
+
         if ($stmt->execute()) {
-            echo "<script>alert('Post reported successfully.');</script>";
+            $_SESSION['flash_message'] = 'Post reported successfully.';
         } else {
-            // Improved error handling
-            echo "<script>alert('Error reporting post: " . addslashes($stmt->error) . "');</script>";
+            $_SESSION['flash_message'] = 'Error reporting post: ' . $stmt->error;
         }
         $stmt->close();
     } else {
-        echo "<script>alert('Reason cannot be empty or user not found.');</script>";
+        $_SESSION['flash_message'] = 'Reason cannot be empty, or your account could not be matched.';
     }
-    
-    // Refresh to show updated reports (optional)
-    header("Location: " . $_SERVER['PHP_SELF']);
+
+    header("Location: " . $_SERVER['PHP_SELF'] . "#post-" . $postId);
     exit();
 }
 ?>

@@ -203,7 +203,7 @@ if (isset($_GET['search'])) {
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['username']) . htmlspecialchars($row['status']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['username']) . (isset($row['status']) ? htmlspecialchars($row['status']) : '') . "</td>";
                         echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
                         echo "<td>";
                         echo "<form method='POST' action='delete_user.php' style='display:inline;'>";
