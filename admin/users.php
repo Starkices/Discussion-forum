@@ -96,13 +96,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <?php
                 require_once('db_connect.php');
                 
-                $sql = "SELECT username, created_at, status FROM users";
+                $sql = "SELECT username, created_at FROM users";
                 $result = mysqli_query($conn, $sql);
                 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['username']) . htmlspecialchars($row['status']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['username'] ?? '') . "</td>";
                         echo "<td>" . date('d M Y, H:i', strtotime($row['created_at'])) . "</td>";
                         echo "</tr>";
                     }

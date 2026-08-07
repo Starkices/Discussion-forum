@@ -34,28 +34,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$locked) {
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
         $error = 'Invalid session. Please try again.';
     } else {
-        $admin_password = 'NIITnigeria01';
         $input_password = $_POST['password'] ?? '';
         $admin_username = $_POST['username'] ?? '';
-        // For simplicity, we are not checking the username in this example.
 
-        if (hash_equals($admin_password, $input_password)) {
+        $db_conn = $conn ?? $mysqli ?? $db ?? null;
+        $authenticated = false;
+        if ($db_conn) {
+            $stmt = $db_conn->prepare("SELECT password FROM admins WHERE username = ?");
+            if ($stmt) {
+                $stmt->bind_param("s", $admin_username);
+                $stmt->execute();
+                // Ensure variable is defined to avoid undefined variable notices
+                $stored_password_hash = null;
+                $stmt->bind_result($stored_password_hash);
+                if ($stmt->fetch() && $stored_password_hash !== null && password_verify($input_password, $stored_password_hash)) {
+                    $authenticated = true;
+                }
+                $stmt->close();
+            }
+        }
+
+        if ($authenticated) {
             session_regenerate_id(true);
             $_SESSION['admin_logged_in'] = true;
-            $_SESSION['admin_name'] = $admin_username; // Store admin username
+            $_SESSION['admin_name'] = $admin_username;
             $_SESSION['admin_login_attempts'] = 0; // Reset on success
-            //update last login time
-            $stmt = $conn->prepare("UPDATE admins SET last_login = NOW() WHERE username = ?");
-            $stmt->bind_param("s", $admin_username);
-            $stmt->execute();
-            $stmt->close();
+
+            if ($db_conn) {
+                $stmt = $db_conn->prepare("UPDATE admins SET last_login = NOW() WHERE username = ?");
+                if ($stmt) {
+                    $stmt->bind_param("s", $admin_username);
+                    $stmt->execute();
+                    $stmt->close();
+                }
+            }
+
             header('Location: ./dashboard.php');
             exit;
         } else {
             $_SESSION['admin_login_attempts']++;
             $_SESSION['admin_last_attempt'] = time();
             $remaining = $max_attempts - $_SESSION['admin_login_attempts'];
-            $error = $remaining > 0 ? "Incorrect password. $remaining attempt(s) left." : "Too many failed attempts. Please wait 10 minutes.";
+            $error = $remaining > 0 ? "Incorrect username or password. $remaining attempt(s) left." : "Too many failed attempts. Please wait 10 minutes.";
         }
     }
 } elseif ($locked) {

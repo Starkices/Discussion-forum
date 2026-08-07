@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
 
         .comment-input {
             width: 100%;
-            min-height: 60px;
+            max-height: 50px;
             border: 1.5px solid #d1d5db;
             border-radius: 6px;
             padding: 10px 12px;
@@ -194,7 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
             border: none;
             padding: 8px 18px;
             border-radius: 5px;
-            font-size: 1rem;
+            height: fit-content;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, box-shadow 0.2s;
@@ -364,17 +365,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
                     $posterProfile = '../media/3135715.png'; // Fallback profile image
                 }
                 echo '<img src="' . htmlspecialchars($posterProfile) . '" alt="Poster Profile" class="profile">';
-                echo '<span class="poster-name">' . htmlspecialchars($postUsername) . '</span>';
-                echo '<h2>' . $postTitle . '</h2>';
+                echo '<span class="poster-name">' . htmlspecialchars($postUsername) . '</span><br>';
+                echo '<h3>' . $postTitle . '</h3>';
                 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
                     // Show admin-specific
                 echo '<p><strong>Category:</strong> ' . $postCategory . '</p>';
                 echo '<p><strong>Created on:</strong> ' . $postCreatedAt . '</p>';
                 }
                 if ($image) {
-                    echo "<a href='$image' ><img src='$image' alt='Post Image' style='max-width: 100%; height: auto;'></a>";
+                    echo "<a href='$image' ><img src='$image' alt='Post Image' style='max-width: 200px; height: auto;'></a>";
                 }
-                echo '<p>' . nl2br($postContent) . '</p>'; 
+                $isTruncated = mb_strlen($postContent) > 150;
+                if ($isTruncated) {
+                    $shortPostContent = mb_substr($postContent, 0, 150);
+                    echo '<p id="post-preview-' . $postId . '">' . nl2br($shortPostContent) . '... <a href="#" onclick="event.preventDefault(); document.getElementById(\'post-preview-' . $postId . '\').style.display=\'none\'; document.getElementById(\'post-full-' . $postId . '\').style.display=\'block\';">See more</a></p>';
+                    echo '<p id="post-full-' . $postId . '" style="display:none;">' . nl2br($postContent) . ' <a href="#" onclick="event.preventDefault(); document.getElementById(\'post-full-' . $postId . '\').style.display=\'none\'; document.getElementById(\'post-preview-' . $postId . '\').style.display=\'block\';">See less</a></p>';
+                } else {
+                    echo '<p>' . nl2br($postContent) . '</p>';
+                }
                 // Fetch comments for this post 
                 $commentsQuery = "SELECT * FROM comments WHERE post_id = $postId ORDER BY created_at ASC";
                 $commentsResult = $conn->query($commentsQuery);
