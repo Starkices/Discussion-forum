@@ -57,16 +57,17 @@ discussion_forum
 http://localhost/discussion-forum
 
 ```
-Username - johndoe
-password - dlaw12345
+- Username - johndoe
+- password - dlaw12345
 
 ### Admin login
 ```
 http://localhost/discussion-forum/admin
 
 ```
-Username - NELLY
-password - DFnigeria01
+- Username - NELLY
+- password - DFnigeria01
+
 ---
 
 ## Screenshots
