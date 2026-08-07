@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.abstract-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 12s infinite;
+}
+
+.bubble1 {
+    width: 200px;
+    height: 200px;
+    background: #fff176;
+    left: 10%;
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.bubble2 {
+    width: 150px;
+    height: 150px;
+    background: #ff8a65;
+    left: 70%;
+    top: 10%;
+    animation-delay: 2s;
+}
+
+.bubble3 {
+    width: 100px;
+    height: 100px;
+    background: #4fc3f7;
+    left: 50%;
+    top: 60%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-40px) scale(1.1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+.login-box {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.97);
+    padding: 2.5rem 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 1.5rem;
+    color: #6e8efb;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.login-box input[type="password"],
+input[type="text"] {
+    width: 90%;
+    padding: 0.7rem;
+    margin: 1rem 0;
+    border: 1px solid #a777e3;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.login-box input[type="password"]:focus {
+    border: 1.5px solid #6e8efb;
+}
+
+.login-box button {
+    background: linear-gradient(90deg, #6e8efb, #a777e3);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.login-box button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.login-box button:hover:enabled {
+    background: linear-gradient(90deg, #a777e3, #6e8efb);
+}
+
+.error {
+    color: #e53935;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.admin-logo {
+    width: 70px;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,73 @@
+/* NIITDF Admin Posts CSS */
+
+.search-bar {
+    margin-bottom: 18px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-bar input[type="text"] {
+    border-radius: 8px;
+    border: 1px solid #c7e0ff;
+    padding: 8px 14px;
+    font-size: 1em;
+    background: #fafdff;
+    transition: border 0.2s;
+}
+
+.search-bar input[type="text"]:focus {
+    border: 1.5px solid #4f8cff;
+    outline: none;
+}
+
+.search-bar button,
+.category-filter button {
+    background: linear-gradient(90deg, #4f8cff 0%, #6ed6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(79, 140, 255, 0.09);
+}
+
+.search-bar button:hover,
+.category-filter button:hover {
+    background: linear-gradient(90deg, #357ae8 0%, #4fd6ff 100%);
+}
+
+.search-bar select {
+    border-radius: 8px;
+    border: 1px solid #c7e0ff;
+    padding: 8px 14px;
+    font-size: 1em;
+    background: #fafdff;
+    transition: border 0.2s;
+}
+
+.toggle-comments {
+    background: linear-gradient(90deg, #4f8cff 0%, #6ed6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(79, 140, 255, 0.09);
+}
+
+.toggle-comments:hover {
+    background: linear-gradient(90deg, #357ae8 0%, #4fd6ff 100%);
+}
+
+.comment-count {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
