@@ -4,6 +4,9 @@ A web-based Student discussion forum built with **PHP** and **MySQL**, allowing 
 
 > This project was built before I began learning Laravel and represents my foundation in backend web development. I plan to rebuild it in Laravel as a more scalable and production-ready application.
 
+[View Live Site](https://starkices-dforum.freedev.app)
+
+
 ---
 
 ## Features
