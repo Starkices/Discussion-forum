@@ -182,6 +182,13 @@ if ($is_admin && isset($_GET['action']) && $_GET['action'] === 'delete' && isset
             // Show user-specific content
             echo '<h1>Groups</h1>'; 
         }
+
+        //display Msg if set from get or post
+        if (isset($_GET['msg'])) {
+            echo '<div class="alert alert-info">' . htmlspecialchars($_GET['msg']) . '</div>';
+        } elseif (isset($msg) && !empty($msg)) {
+            echo '<div class="alert alert-info">' . htmlspecialchars($msg) . '</div>';
+        }
         ?> 
        <?php if($is_admin): ?>
         <a href="newgroup.php" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Group</a>
@@ -275,7 +282,7 @@ if ($is_admin && isset($_GET['action']) && $_GET['action'] === 'delete' && isset
                         $stmt = $conn->prepare("SELECT id, group_name, group_description FROM groups WHERE group_name LIKE ? OR group_description LIKE ?");
                         $stmt->bind_param("ss", $search, $search);
                     } else {
-                        $stmt = $conn->prepare("SELECT * FROM groups WHERE id NOT IN (SELECT group_id FROM group_members WHERE user_id = ?)");
+                        $stmt = $conn->prepare("SELECT * FROM groups WHERE id NOT IN (SELECT group_id FROM group_members WHERE user_id = ?) LIMIT 5");
                         $stmt->bind_param("i", $user_id);
                     } 
                     $stmt->execute();
@@ -293,7 +300,7 @@ if ($is_admin && isset($_GET['action']) && $_GET['action'] === 'delete' && isset
                             if($row['password'] !== null) {
                                 echo '<button type="button" class="btn btn-secondary" onclick="joinGroupWithPassword(' . $row['id'] . ')">Join with Password</button>';
                             }else{
-                                echo '<button type="submit" class="btn btn-primary">Join Group</button>';
+                                echo '<a href="join_group.php?id=' . $row['id'] . '" class="btn btn-primary">Join Group</a>';
                             } 
                             echo '</form>';
                             echo '</div>';
@@ -314,7 +321,7 @@ if ($is_admin && isset($_GET['action']) && $_GET['action'] === 'delete' && isset
 function joinGroupWithPassword(groupId) {
     var pwd = prompt("This group requires a password. Please enter it:");
     if (pwd !== null && pwd !== "") {
-        window.location.href = "?join_group_id=" + groupId + "&group_password=" + encodeURIComponent(pwd);
+        window.location.href = "join_group.php?id=" + groupId + "&group_password=" + encodeURIComponent(pwd);
     }
 }
 </script>
