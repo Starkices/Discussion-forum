@@ -290,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
             $category = [
                 'General Discussion',
                 'Programming Support',
-                'Assignments updates',
+                'Assignment updates',
                 'Announcements',
             ];
             $selected_category = $_GET['category'] ?? '';

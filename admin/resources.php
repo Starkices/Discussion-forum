@@ -95,7 +95,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'resources';
             echo '</div>';
         } elseif ($activeTab == 'groups') {
             // Fetch all groups (removed LIMIT 2)
-            $stmt = $conn->prepare("SELECT id, group_name, group_description FROM groups");
+            $stmt = $conn->prepare("SELECT id, group_name, group_description, password FROM groups LIMIT 4");
             $stmt->execute();
             $result = $stmt->get_result();
             echo '<h2>Groups</h2>';
@@ -122,7 +122,11 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'resources';
                     $isMember = $checkMemberResult->fetch_row()[0] > 0;
                     $checkMemberStmt->close();
                     if (!$isMember) {
-                        echo '<a href="join_group.php?id=' . $row['id'] . '" class="btn btn-primary mt-2">Join Group</a>';
+                        if($row['password'] !== null) {
+                            echo '<button type="button" class="btn btn-secondary" onclick="joinGroupWithPassword(' . $row['id'] . ')">Join with Password</button>';
+                        }else{
+                            echo '<a href="join_group.php?id=' . $row['id'] . '" class="btn btn-primary mt-2">Join Group</a>';
+                        }
                     } else {
                         echo '<span class="text-success mt-2">You are a member of this group</span>';
                     }
@@ -138,4 +142,12 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'resources';
           
 </div>
 </body>
+<script>
+function joinGroupWithPassword(groupId) {
+    var pwd = prompt("This group requires a password. Please enter it:");
+    if (pwd !== null && pwd !== "") {
+        window.location.href = "join_group.php?id=" + groupId + "&group_password=" + encodeURIComponent(pwd);
+    }
+}
+</script>
 </html>
