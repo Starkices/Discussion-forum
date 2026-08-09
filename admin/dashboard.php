@@ -36,7 +36,7 @@ $adminName = $_SESSION['admin_name'] ?? 'Administrator';
         <div class="dashboard-cards">
             <div class="card">
                 <i class="fas fa-users"></i>
-                <div class="card-title">Total Users</div>
+                <div class="card-title">Total Students</div>
                 <div class="card-value">
                     <?php
                     $userCount = $conn->query("SELECT COUNT(*) FROM users");
